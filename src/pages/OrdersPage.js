@@ -11,6 +11,7 @@ import { OrderContextProvider } from "../contexts/OrderContext";
 import { AuthContextProvider } from "../contexts/AuthContext";
 import { Link } from "react-router-dom";
 import BGColor from "../components/BGColor";
+import LoadingPage from "../components/LoadingPage";
 
 const OrdersPage = () => {
   const [date_from, setDate_from] = useState(getCurrentDateMinusDays(7));
@@ -63,6 +64,7 @@ const OrdersPage = () => {
 
   return (
     <div className="cairo flex flex-col" dir="rtl">
+      {orderContext.loading && <LoadingPage />}
       <ClientHeader />
       <div className="flex md:flex-row flex-col-reverse md:gap-0 gap-20 mt-14 p-3">
         <OrdersSection date_from={date_from} date_to={date_to} />

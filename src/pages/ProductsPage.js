@@ -13,20 +13,18 @@ const ProductsPage = () => {
 
   const products = productsContext.products;
 
-  const [loading, setLoading] = React.useState(true);
+  const loading = productsContext.loading;
 
   const [search, setSearch] = React.useState("");
   const [categorySearch, setCategory] = React.useState("");
   const [mother_category, setMotherCategory] = React.useState("");
 
   const getProducts = async () => {
-    setLoading(true);
     productsContext?.getProducts({
       search,
       category: categorySearch,
       mother_category,
     });
-    setLoading(false);
   };
 
   useEffect(() => {

@@ -6,6 +6,7 @@ import { getCookie } from "../utlits/Functions";
 import CartComponent from "../components/CartComponent";
 import OrderForm from "../components/OrderForm";
 import LoadingPage from "../components/LoadingPage";
+import { OrderContextProvider } from "../contexts/OrderContext";
 
 const CheckOutPage = () => {
   const cartContext = useContext(CartContextProvider);
@@ -39,9 +40,11 @@ const CheckOutPage = () => {
     getTheTotalPrice();
   }, [carts]);
 
+  const orderContext = useContext(OrderContextProvider);
+
   return (
     <div className="cairo flex flex-col" dir="rtl">
-      {loading && <LoadingPage />}
+      {loading || orderContext?.loading ? <LoadingPage /> : null}
       <ClientHeader />
       <div className="flex md:flex-row flex-col gap-3 mt-10">
         {/* items */}

@@ -7,6 +7,9 @@ const CartContext = ({ children }) => {
   const headers = {
     Authorization: `Token ${getCookie("token")}`,
   };
+
+  const [loading, setLoading] = React.useState(false);
+
   const createCart = async (data) => {
     const res = await axios.post(`${server}api/carts/`, data, { headers });
     return res;
@@ -20,6 +23,7 @@ const CartContext = ({ children }) => {
   };
 
   const addToCart = ({ product, variant, quantity, setOpen }) => {
+    setLoading(true);
     const user = getCookie("token");
     // if not user -> add to localstorage
     if (!user) {
@@ -79,14 +83,18 @@ const CartContext = ({ children }) => {
           alert("حدث خطأ ما في السيرفر");
         });
     }
+    setLoading(false);
   };
 
   const deleteCart = async (id) => {
+    setLoading(true);
     const res = await axios.delete(`${server}api/cart/${id}/`, { headers });
+    setLoading(false);
     return res;
   };
 
   const updateCart = async (data) => {
+    setLoading(true);
     if (getCookie("token")) {
       const res = await axios.put(`${server}api/cart/${data.id}/`, data, {
         headers,
@@ -107,6 +115,8 @@ const CartContext = ({ children }) => {
         }
       }
     }
+
+    setLoading(false);
   };
 
   const deleteUserCart = async () => {
@@ -117,6 +127,7 @@ const CartContext = ({ children }) => {
     <CartContextProvider.Provider
       value={{
         createCart,
+        loading,
         carts,
         setCarts,
         getCarts,

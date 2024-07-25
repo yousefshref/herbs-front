@@ -8,6 +8,7 @@ import { CiHeart, CiShoppingCart } from "react-icons/ci";
 import { getCookie } from "../utlits/Functions";
 import { CartContextProvider } from "../contexts/CartContext";
 import { Link } from "react-router-dom";
+import LoadingPage from "./LoadingPage";
 
 const ProductComponent = ({ product }) => {
   //   {
@@ -79,12 +80,13 @@ const ProductComponent = ({ product }) => {
 
   return (
     <div className="w-full h-fit flex flex-col rounded-xl border border-[#d9d9d9]">
+      {cartContext?.loading && <LoadingPage />}
       <div className="relative -mt-24 overflow-hidden">
         <Link
           to={`/product/${product?.name?.replace(/ /g, "-")}/${product?.id}/`}
         >
           <img
-            className="w-full hover:scale-105 transition-all z-50 relative"
+            className="w-full hover:scale-105 transition-all z-40 relative"
             src={product?.images_details[0]?.image}
           />
         </Link>

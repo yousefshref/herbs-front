@@ -5,6 +5,7 @@ import ClientHeader from "../components/ClientHeader";
 import { Slide } from "react-slideshow-image";
 import { Button } from "@chakra-ui/react";
 import { CartContextProvider } from "../contexts/CartContext";
+import LoadingPage from "../components/LoadingPage";
 
 const ProductDetailsPage = () => {
   const productsContext = React.useContext(ProductsContextProvider);
@@ -25,6 +26,7 @@ const ProductDetailsPage = () => {
   }, [product?.id]);
   return (
     <div className="flex flex-col cairo" dir="rtl">
+      {productsContext.loading && <LoadingPage />}
       <ClientHeader />
       <div className="flex md:flex-row flex-col gap-4 justify-between">
         <div className="md:w-1/3 w-full flex flex-col justify-center gap-2">

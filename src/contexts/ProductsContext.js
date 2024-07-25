@@ -137,12 +137,14 @@ const ProductsContext = ({ children }) => {
   const [productsCount, setProductsCount] = React.useState(0);
   const [productsNext, setProductsNext] = React.useState("");
   const [productsPrevious, setProductsPrevious] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
   const getProducts = async ({
     page = 1,
     search = "",
     category = "",
     mother_category = "",
   }) => {
+    setLoading(true);
     const res = await axios.get(
       `${server}api/product/?page=${page}&search=${search}&category=${category}&mother_category=${mother_category}`,
       {
@@ -153,13 +155,16 @@ const ProductsContext = ({ children }) => {
     setProductsCount(res.data.count);
     setProductsNext(res.data.next);
     setProductsPrevious(res.data.previous);
+    setLoading(false);
     return res;
   };
 
   const [product, setProduct] = React.useState({});
   const getProduct = async (id) => {
+    setLoading(true);
     const res = await axios.get(`${server}api/product/${id}/`, { headers });
     setProduct(res.data);
+    setLoading(false);
     return res;
   };
 
@@ -217,6 +222,7 @@ const ProductsContext = ({ children }) => {
         products,
         setProducts,
         getProducts,
+        loading,
         product,
         productsCount,
         productsNext,

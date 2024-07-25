@@ -33,6 +33,12 @@ const ClientHeader = () => {
 
   const [openProfile, setOpenProfile] = React.useState(false);
 
+  const [cartsNumber, setCartsNumber] = React.useState(0);
+
+  useEffect(() => {
+    setCartsNumber(carts?.length);
+  }, [carts]);
+
   return (
     <header className="flex justify-between p-2 bg-white shadow-md px-5 items-center gap-5 z-50">
       {openedCart || openProfile ? (
@@ -95,10 +101,17 @@ const ClientHeader = () => {
             ))}
         </div>
         <div>
-          <CiHeart
-            onClick={() => setOpenedCart(true)}
-            className="cursor-pointer transition-all hover:text-red-500"
-          />
+          <div className="relative h-fit">
+            <CiHeart
+              onClick={() => setOpenedCart(true)}
+              className="cursor-pointer transition-all hover:text-red-500"
+            />
+            {cartsNumber ? (
+              <span className="absolute select-none -top-1 -right-1 p-1 text-sm rounded-full flex justify-center items-center w-[14px] h-[14px] bg-red-500 text-white">
+                {cartsNumber}
+              </span>
+            ) : null}
+          </div>
           {openedCart && (
             <div className="absolute text-sm md:left-[5vw] left-1/2 md:-translate-x-0 -translate-x-1/2 z-[100] flex flex-col gap-3 p-2 w-full max-w-[400px] rounded-xl from-slate-200 to-indigo-100 bg-gradient-to-t">
               {carts?.length ? (
