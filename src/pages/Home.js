@@ -6,6 +6,8 @@ import "swiper/css";
 import { BsInstagram, BsQuote } from "react-icons/bs";
 import TestimonalCard from "../components/TestimonalCard";
 import { Navigation, Pagination } from "swiper/modules";
+import Header from "../components/Header";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const logos = [
@@ -25,15 +27,7 @@ const Home = () => {
   return (
     <div dir="rtl" className="flex flex-col cairo">
       <div className="landing flex flex-col justify-center items-center relative w-[100vw] overflow-hidden from-slate-100 to-transparent bg-gradient-to-t h-[100vh]">
-        <header className="absolute md:text-base text-xs top-0 right-0 flex md:gap-20 gap-5 justify-start items-center p-3">
-          <img className="w-[50px]" src="/logos/humming-bird.png" />
-          <div className="flex items-center gap-3">
-            <p>منتجات التخسيس</p>
-            <p>الرياضيين</p>
-            <p>منتجات العسل</p>
-            <p>البشرة والصحة</p>
-          </div>
-        </header>
+        <Header />
         <div className="flex relative items-center justify-between w-full h-full">
           <div className="absolute md:hidden block from-white via-white to-transparent bg-gradient-to-t opacity-50 z-30 top-0 left-0 w-full h-full"></div>
           <div className="md:w-1/2 w-full pt-10 h-full">
@@ -80,7 +74,7 @@ const Home = () => {
               colorScheme="green"
               className="w-fit"
             >
-              تصفح المتجر
+              <Link to="/products">تصفح المتجر</Link>
             </Button>
           </div>
           {/* add logos scrolling swiper */}
