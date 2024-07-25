@@ -4,6 +4,7 @@ import { Button, Input, InputGroup, InputRightElement } from "@chakra-ui/react";
 import { GoEyeClosed } from "react-icons/go";
 import { BsEye } from "react-icons/bs";
 import { AuthContextProvider } from "../contexts/AuthContext";
+import LoadingPage from "../components/LoadingPage";
 
 const Login = () => {
   const authContext = React.useContext(AuthContextProvider);
@@ -14,11 +15,14 @@ const Login = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
+  const loading = authContext.loading;
+
   return (
     <div
       dir="rtl"
       className="cairo h-[100vh] flex flex-col justify-center items-center"
     >
+      {loading ? <LoadingPage /> : null}
       <div className="flex md:flex-row flex-col w-full h-full">
         <div className="md:w-1/2 h-full bg-emerald-300 overflow-hidden relative">
           <video src={video} className="w-[400vw]" autoPlay loop muted></video>

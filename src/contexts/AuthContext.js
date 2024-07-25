@@ -7,7 +7,10 @@ import { getCookie } from "../utlits/Functions";
 const AuthContext = ({ children }) => {
   const navigate = useNavigate();
 
+  const [loading, setLoading] = React.useState(false);
+
   const signIn = async (data) => {
+    setLoading(true);
     await axios
       .post(`${server}api/login/`, data)
       .then((res) => {
@@ -24,7 +27,8 @@ const AuthContext = ({ children }) => {
       .catch((err) => {
         console.log(err);
         alert(err.response.data.detail || err.response.data);
-      });
+      })
+      .then(() => setLoading(false));
   };
 
   const [user, setUser] = React.useState({});
@@ -46,7 +50,9 @@ const AuthContext = ({ children }) => {
     window.location.reload();
   };
   return (
-    <AuthContextProvider.Provider value={{ signIn, user, getUser, signOut }}>
+    <AuthContextProvider.Provider
+      value={{ signIn, user, getUser, signOut, loading }}
+    >
       {children}
     </AuthContextProvider.Provider>
   );
